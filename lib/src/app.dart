@@ -11,19 +11,18 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
-  int counter = 0;
+  String counter = "0";
   List<ImageModel> images = [];
 
   void fecthImage() async {
-    counter += 1;
+    counter = (int.parse(counter) + 1).toString();
     var response = await get(
-        Uri.parse('https://jsonplaceholder.typicode.com/photos/$counter'));
+      Uri.parse('https://picsum.photos/id/$counter/info'),
+    );
     var imageModel = ImageModel.fromJson(json.decode(response.body));
     setState(() {
       images.add(imageModel);
-      print('Hi there! dari app.dart $images');
     });
-    // },
   }
 
   Widget build(context) {
@@ -31,8 +30,8 @@ class AppState extends State<App> {
       home: Scaffold(
         body: ImageList(images),
         floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
           onPressed: fecthImage,
+          child: const Icon(Icons.add),
         ),
         appBar: AppBar(
           title: Text('Lets see some images!'),

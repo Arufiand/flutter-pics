@@ -10,16 +10,17 @@ class ImageList extends StatelessWidget {
     return ListView.builder(
       itemCount: images.length,
       itemBuilder: (context, int index) {
-        print(Text(images[index].url));
         // return Text(images[index].url);
-        return Image.network(
-          images[index].url,
-          errorBuilder: (context, error, stackTrace) {
-            print('error $error');
-            print('Stack Trace $stackTrace');
-            return Text('Error while fetching image'); // Your placeholder image
-          },
-        );
+        return Container(
+            margin: const EdgeInsets.all(20.0),
+            child: Image.network(
+              images[index].url,
+              errorBuilder: (context, error, stackTrace) {
+                return const Text(
+                    'Error while fetching image'); // Your placeholder image
+              },
+            ));
+        // return
       },
     );
   }
