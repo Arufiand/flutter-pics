@@ -5,6 +5,9 @@ import 'dart:convert';
 import 'widgets/image_list.dart';
 
 class App extends StatefulWidget {
+  const App({super.key});
+
+  @override
   createState() {
     return AppState();
   }
@@ -14,7 +17,7 @@ class AppState extends State<App> {
   String counter = "0";
   List<ImageModel> images = [];
 
-  void fecthImage() async {
+  void fetchImage() async {
     counter = (int.parse(counter) + 1).toString();
     var response = await get(
       Uri.parse('https://picsum.photos/id/$counter/info'),
@@ -25,16 +28,17 @@ class AppState extends State<App> {
     });
   }
 
+  @override
   Widget build(context) {
     return MaterialApp(
       home: Scaffold(
         body: ImageList(images),
         floatingActionButton: FloatingActionButton(
-          onPressed: fecthImage,
+          onPressed: fetchImage,
           child: const Icon(Icons.add),
         ),
         appBar: AppBar(
-          title: Text('Lets see some images!'),
+          title: const Text('Lets see some images!'),
         ),
       ),
     );
